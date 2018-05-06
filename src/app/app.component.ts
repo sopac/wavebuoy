@@ -81,6 +81,7 @@ export class AppComponent implements OnInit {
     this.chart = new Array<Chart>();
 
 
+    /*
     let c1:Chart = new Chart();
     c1.name = "Significant Wave Height";
     var series:Series[] = new Array<Series>();
@@ -93,6 +94,7 @@ export class AppComponent implements OnInit {
     }
     c1.series = series;
     this.chart.push(c1);
+    */
 
     let c2:Chart = new Chart();
     c2.name = "Peak Period";
