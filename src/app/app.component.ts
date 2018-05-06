@@ -5,7 +5,9 @@ import {WaveData} from "./wave-data";
 import {Chart} from "./chart";
 import {Series} from "./chart";
 import {Wave} from "./wave-data";
-import {NgxChartsModule} from "@swimlane/ngx-charts";
+
+import { icon, latLng, Layer, marker, tileLayer } from 'leaflet';
+
 
 import {TESTDATA} from "./data";
 import {MatTableDataSource} from "@angular/material";
@@ -32,9 +34,33 @@ export class AppComponent implements OnInit {
   no = false;
   xLabel = 'TimeStamp';
   yLabel = 'Measurements';
-  theme = "dark";
+
+
+  options = {
+    layers: [
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'SPC' })
+    ],
+    zoom: 12,
+    center: latLng(-18.17113, 177.42792)
+  };
+
+  markers: Layer[] = [];
+
+  marker1 = marker([ -18.17113, 177.42792 ], {
+    icon: icon({
+      iconSize: [ 25, 41 ],
+      iconAnchor: [ 13, 41 ],
+      iconUrl: 'assets/marker-icon.png',
+      shadowUrl: 'assets/marker-shadow.png',
+    })
+  });
+
+
+
 
   constructor(private service: SpotterService) {
+    this.markers.push(this.marker1);
+
   }
 
 
@@ -74,13 +100,8 @@ export class AppComponent implements OnInit {
     c0.series = series;
     this.chartSWH.push(c0);
 
-
-
-
     //all
     this.chart = new Array<Chart>();
-
-
     /*
     let c1:Chart = new Chart();
     c1.name = "Significant Wave Height";

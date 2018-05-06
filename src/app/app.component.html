@@ -91,8 +91,11 @@
     </div>
 
 
+    <div style="height: 250px; width: 85%" leaflet [leafletOptions]="options" [leafletLayers]="markers"></div>
+
+
   </mat-card-content>
-  <mat-card-actions align="center">
+  <mat-card-actions>
     <button mat-button style="color: blue"><hr/>&copy; 2018 Geoscience, Energy and Maritime Division, Pacific Community (SPC)</button>
     <button mat-button style="width: 38%"></button>
     <button mat-button><a target="_blank" href="https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId=SPOT-0089&token=b682251eb3ca95d6caf1eac39ae18c&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500">Download Data</a></button>

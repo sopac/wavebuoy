@@ -13,6 +13,7 @@ import {
   MatListModule,
   MatTableModule
 } from "@angular/material";
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
 
@@ -32,6 +33,7 @@ import {
     MatDividerModule,
     MatTableModule,
     NgxChartsModule,
+    LeafletModule.forRoot()
   ],
   providers: [SpotterService],
   bootstrap: [AppComponent]
