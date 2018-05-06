@@ -1,8 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgModule} from '@angular/core';
+import {SpotterService} from "./spotter.service";
+import {HttpClientModule} from "@angular/common/http";
+import {AppComponent} from './app.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDividerModule,
+  MatIconModule,
+  MatListModule,
+  MatTableModule
+} from "@angular/material";
 
 
-import { AppComponent } from './app.component';
 
 
 @NgModule({
@@ -10,9 +22,19 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatDividerModule,
+    MatTableModule,
+    NgxChartsModule,
   ],
-  providers: [],
+  providers: [SpotterService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

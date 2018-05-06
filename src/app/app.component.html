@@ -1,20 +1,106 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mat-card class="example-card">
 
+  <img align="right" src="http://www.spc.int/wp-content/uploads/2016/10/logo.png"/>
+
+  <mat-card-header>
+    <mat-card-title-group>
+      <mat-card-title><h1>Wave Buoy Data</h1></mat-card-title>
+      <mat-card-subtitle>WMO Coastal Inundation Forecasting Demonstration Project, Fiji</mat-card-subtitle>
+      <mat-card-subtitle>Geoscience, Energy and Maritime Division, Pacific Community (SPC)</mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+
+  <mat-card-content>
+    <hr/>
+
+
+    <h2 align="center" style="font-family: Roboto,'Helvetica Neue',sans-serif;">Current Data</h2>
+
+    <table class="mat-table" style="width: 100%">
+      <tr style="background-color: lightblue;">
+        <th style="width: 33%">Name</th>
+        <th style="width: 33%">Temperature</th>
+        <th>Humidity</th>
+      </tr>
+      <tr>
+        <td align="center">{{latest?.data.spotterName}}</td>
+        <td align="center">{{latest?.data.temperature}} °C</td>
+        <td align="center">{{latest?.data.humidity}} %</td>
+      </tr>
+    </table>
+
+
+    <hr/>
+
+    <table class="mat-table" style="width: 100%">
+      <thead>
+      <tr style="background-color: lightblue;">
+        <th style="width: 10%">Time Stamp</th>
+        <th style="width: 10%">Significant Wave Height</th>
+        <th style="width: 10%">Peak Period</th>
+        <th style="width: 10%">Mean Period</th>
+        <th style="width: 10%">Peak Direction</th>
+        <th style="width: 10%">Peak Directional Spread</th>
+        <th style="width: 10%">Mean Direction</th>
+        <th style="width: 10%">Mean Directional Spread</th>
+        <th style="width: 10%">Latitude</th>
+        <th style="width: 10%">Longitude</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr style="text-align: center" *ngFor="let r of latest?.data.waves">
+        <td>{{r.timestamp}}</td>
+        <td>{{r.significantWaveHeight}}</td>
+        <td>{{r.peakPeriod}}</td>
+        <td>{{r.meanPeriod}}</td>
+        <td>{{r.peakDirection}}</td>
+        <td>{{r.peakDirectionalSpread}}</td>
+        <td>{{r.meanDirection}}</td>
+        <td>{{r.meanDirectionalSpread}}</td>
+        <td>{{r.latitude}}</td>
+        <td>{{r.longitude}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <hr/>
+    <h2 align="center" style="font-family: Roboto,'Helvetica Neue',sans-serif;">Historical Data</h2>
+    <p align="center">
+      {{waveData?.data.waves.length}} Datasets Available
+    </p>
+    <br/>
+    <br/>
+
+
+    <!--<div style="height: 300px;" *ngIf="chart">-->
+
+
+    <div style="width: 100%; height: 400px;">
+
+      <ngx-charts-line-chart *ngIf="chartSWH" [results]="chartSWH" legend="true" legendTitle="Data Type"
+                             [autoScale]="yes" [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Significant Wave Height"
+                             [xAxis]="yes" [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
+
+
+      <ngx-charts-line-chart *ngIf="chart" [results]="chart" legend="true" legendTitle="Data Type" [autoScale]="yes"
+                             [yAxis]="yes" [showYAxisLabel]="yes" [yAxisLabel]="yLabel" [xAxis]="yes"
+                             [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
+
+
+
+    </div>
+
+
+  </mat-card-content>
+  <mat-card-actions align="center">
+    <button mat-button style="color: blue"><hr/>&copy; 2018 Geoscience, Energy and Maritime Division, Pacific Community (SPC)</button>
+    <button mat-button style="width: 40%"></button>
+    <button mat-button><a href="https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId=SPOT-0089&token=b682251eb3ca95d6caf1eac39ae18c&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500">Download Data</a></button>
+    <button mat-button><a href="">Source Code</a></button>
+  </mat-card-actions>
+</mat-card>
+
+
+<!--
+<ngx-charts-line-chart [results]="chart" [view]="view" legend="true" legendTitle="DataType" [xAxisLabel]="xLabel" [yAxisLabel]="yLabel" showXAxisLabel="true" [showYAxisLabel]="no" [showGridLines]="yes" ></ngx-charts-line-chart>
+-->

@@ -1,4 +1,6 @@
-# Wavebuoy
+# SPC/CIFDP Wavebuoy Client for Spotter API
+http://www.pacgeo.org/static/wavebuoy
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
