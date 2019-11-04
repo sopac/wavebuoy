@@ -1,21 +1,41 @@
 <mat-card class="example-card">
 
-  <img align="right" style="height: 70px;" src="http://www.spc.int/wp-content/uploads/2016/10/logo.png"/>
-  <img align="right" style="height: 96px; margin-top: -5px;margin-right: 10px; " src="http://www.pacgeo.org/static/usp.png"/>
-  <img align="right" style="height: 60px; margin-right: 10px; margin-top: 10px;" src="https://en.ird.fr/extension/ird/design/ird/images/picto/logo_ird.png"/>
-  <img align="right" style="height: 80px; margin-right: 10px;" src="http://www.pacgeo.org/static/fiji.jpg"/>
-  <img align="right" style="height: 80px; margin-right: 10px; margin-top: -10px;" src="http://www.pacgeo.org/static/wmo.jpg"/>
+  <img align="right" style="height: 70px;" src="http://www.spc.int/wp-content/uploads/2016/10/logo.png" />
+  <img align="right" style="height: 96px; margin-top: -5px;margin-right: 10px; "
+    src="http://www.pacgeo.org/static/usp.png" />
+  <img align="right" style="height: 60px; margin-right: 10px; margin-top: 10px;"
+    src="https://en.ird.fr/extension/ird/design/ird/images/picto/logo_ird.png" />
+  <img align="right" style="height: 80px; margin-right: 10px;" src="http://www.pacgeo.org/static/fiji.jpg" />
+  <img align="right" style="height: 80px; margin-right: 10px; margin-top: -10px;"
+    src="http://www.pacgeo.org/static/wmo.jpg" />
 
   <mat-card-header>
     <mat-card-title-group>
-      <mat-card-title><h1>Wave Buoy Data</h1></mat-card-title>
+      <mat-card-title>
+        <h1>Wave Buoy Data</h1>
+      </mat-card-title>
       <mat-card-subtitle>WMO Coastal Inundation Forecasting Demonstration Project, Fiji</mat-card-subtitle>
       <mat-card-subtitle>Geoscience, Energy and Maritime Division, Pacific Community (SPC)</mat-card-subtitle>
     </mat-card-title-group>
   </mat-card-header>
 
   <mat-card-content>
-    <hr/>
+    <hr />
+
+    <div align="center" style="font-size: 200%; color: blue;">
+      <mat-radio-group aria-label="Select Wave Buoy Location:" [(ngModel)]="spotter_id_val" (change)="onSelectionChange()">
+
+        <mat-radio-button value="SPOT-0089" checked> Cuvu</mat-radio-button>
+        <mat-radio-button value="SPOT-0298"> Kadavu</mat-radio-button>
+        <mat-radio-button value="SPOT-0299"> Komave</mat-radio-button>
+
+      </mat-radio-group>
+    </div>
+
+    <hr />
+
+    <div align="center">{{spotter_id_val}}</div>
+    
 
 
     <h2 align="center" style="font-family: Roboto,'Helvetica Neue',sans-serif;">Current Data</h2>
@@ -34,48 +54,50 @@
     </table>
 
 
-    <hr/>
+    <hr />
 
     <table class="mat-table" style="width: 100%">
       <thead>
-      <tr style="background-color: lightblue;">
-        <th style="width: 10%">Time Stamp</th>
-        <th style="width: 10%">Significant Wave Height</th>
-        <th style="width: 10%">Peak Period</th>
-        <th style="width: 10%">Mean Period</th>
-        <th style="width: 10%">Peak Direction</th>
-        <th style="width: 10%">Peak Directional Spread</th>
-        <th style="width: 10%">Mean Direction</th>
-        <th style="width: 10%">Mean Directional Spread</th>
-        <th style="width: 10%">Latitude</th>
-        <th style="width: 10%">Longitude</th>
-      </tr>
+        <tr style="background-color: lightblue;">
+          <th style="width: 10%">Time Stamp</th>
+          <th style="width: 10%">Significant Wave Height</th>
+          <th style="width: 10%">Peak Period</th>
+          <th style="width: 10%">Mean Period</th>
+          <th style="width: 10%">Peak Direction</th>
+          <th style="width: 10%">Peak Directional Spread</th>
+          <th style="width: 10%">Mean Direction</th>
+          <th style="width: 10%">Mean Directional Spread</th>
+          <th style="width: 10%">Latitude</th>
+          <th style="width: 10%">Longitude</th>
+        </tr>
       </thead>
       <tbody>
-      <tr style="text-align: center" *ngFor="let r of latest?.data.waves">
-        <td>{{r.timestamp}}</td>
-        <td>{{r.significantWaveHeight}}</td>
-        <td>{{r.peakPeriod}}</td>
-        <td>{{r.meanPeriod}}</td>
-        <td>{{r.peakDirection}}</td>
-        <td>{{r.peakDirectionalSpread}}</td>
-        <td>{{r.meanDirection}}</td>
-        <td>{{r.meanDirectionalSpread}}</td>
-        <td>{{r.latitude}}</td>
-        <td>{{r.longitude}}</td>
-      </tr>
+        <tr style="text-align: center" *ngFor="let r of latest?.data.waves">
+          <td>{{r.timestamp}}</td>
+          <td>{{r.significantWaveHeight}}</td>
+          <td>{{r.peakPeriod}}</td>
+          <td>{{r.meanPeriod}}</td>
+          <td>{{r.peakDirection}}</td>
+          <td>{{r.peakDirectionalSpread}}</td>
+          <td>{{r.meanDirection}}</td>
+          <td>{{r.meanDirectionalSpread}}</td>
+          <td>{{r.latitude}}</td>
+          <td>{{r.longitude}}</td>
+        </tr>
       </tbody>
     </table>
 
-    <hr/>
+    <hr />
     <h2 align="center" style="font-family: Roboto,'Helvetica Neue',sans-serif;">Historical Data</h2>
     <p align="center">
       <b>{{waveData?.data.waves.length}}</b> Datasets Available, Charting Last <b>{{displayMax}}</b> Records
-      <br/>
-      <a href="#" (click)="chartRequest(100)">Chart 100</a>, <a href="#" (click)="chartRequest(200)">Chart 200</a>, <a href="#" (click)="chartRequest(300)">Chart 300</a>, <a href="#" (click)="chartRequest(400)">Chart 400</a>, <a href="#" (click)="chartRequest(500)">Chart 500</a>, <a href="#" (click)="chartRequest(-1)">Chart All</a>
+      <br />
+      <a href="#" (click)="chartRequest(100)">Chart 100</a>, <a href="#" (click)="chartRequest(200)">Chart 200</a>, <a
+        href="#" (click)="chartRequest(300)">Chart 300</a>, <a href="#" (click)="chartRequest(400)">Chart 400</a>, <a
+        href="#" (click)="chartRequest(500)">Chart 500</a>, <a href="#" (click)="chartRequest(-1)">Chart All</a>
     </p>
-    <br/>
-    <br/>
+    <br />
+    <br />
 
 
     <!--<div style="height: 300px;" *ngIf="chart">-->
@@ -84,18 +106,18 @@
     <div style="width: 100%; height: 400px;">
 
       <ngx-charts-line-chart *ngIf="chartSWH" [results]="chartSWH" legend="true" legendTitle="Significant Wave Heights"
-                             [autoScale]="yes" [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Significant Wave Height"
-                             [xAxis]="yes" [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
+        [autoScale]="yes" [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Significant Wave Height" [xAxis]="yes"
+        [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
 
 
-      <ngx-charts-line-chart *ngIf="chartMPP" [results]="chartMPP" legend="true" legendTitle="Mean and Peak Periods" [autoScale]="yes"
-                             [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Mean and Peak Periods" [xAxis]="yes"
-                             [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
+      <ngx-charts-line-chart *ngIf="chartMPP" [results]="chartMPP" legend="true" legendTitle="Mean and Peak Periods"
+        [autoScale]="yes" [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Mean and Peak Periods" [xAxis]="yes"
+        [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
 
 
-      <ngx-charts-line-chart *ngIf="chartDIR" [results]="chartDIR" legend="true" legendTitle="Mean and Peak Directions" [autoScale]="yes"
-                             [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Mean and Peak Directions" [xAxis]="yes"
-                             [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
+      <ngx-charts-line-chart *ngIf="chartDIR" [results]="chartDIR" legend="true" legendTitle="Mean and Peak Directions"
+        [autoScale]="yes" [yAxis]="yes" [showYAxisLabel]="yes" yAxisLabel="Mean and Peak Directions" [xAxis]="yes"
+        [showXAxisLabel]="yes" [xAxisLabel]="xLabel"></ngx-charts-line-chart>
 
 
     </div>
@@ -106,9 +128,10 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button style="color: blue"><hr/>&copy; 2018 Geoscience, Energy and Maritime Division, Pacific Community (SPC)</button>
+    <button mat-button style="color: blue">
+      <hr />&copy; 2018 Geoscience, Energy and Maritime Division, Pacific Community (SPC)</button>
     <button mat-button style="width: 48%"></button>
-   <!--
+    <!--
      <button mat-button><a target="_blank" href="https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId=SPOT-0089&token=b682251eb3ca95d6caf1eac39ae18c&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500">Download Data</a></button>
     -->
     <button mat-button><a target="_blank" href="https://github.com/sopac/wavebuoy">Source Code</a></button>

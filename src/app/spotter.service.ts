@@ -9,17 +9,18 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class SpotterService {
 
-  private latestUrl = 'https://wavefleet.spoondriftspotter.co/api/latest-data?spotterId=SPOT-0089&token=b682251eb3ca95d6caf1eac39ae18c&includeDirectionalMoments=true';
-
-  private waveDataUrl = 'https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId=SPOT-0089&token=b682251eb3ca95d6caf1eac39ae18c&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500';
+  
+  
 
   constructor(private http: HttpClient) {
   }
 
 
 
-  getLatest (): Observable<LatestData[]> {
-    return this.http.get<LatestData[]>(this.latestUrl)
+  getLatest(spotterId: String): Observable<LatestData[]> {
+    //private latestUrl = 'https://wavefleet.spoondriftspotter.co/api/latest-data?spotterId=" + spotterId +"&token=c3abab55e2e549f02fdb683bd936c7&includeDirectionalMoments=true';
+
+    return this.http.get<LatestData[]>('https://wavefleet.spoondriftspotter.co/api/latest-data?spotterId=' + spotterId +'&token=c3abab55e2e549f02fdb683bd936c7&includeDirectionalMoments=true')
       .pipe(
         tap(_ => this.log('fetched latest data...')),
         catchError(this.handleError('getLatest', []))
@@ -27,8 +28,10 @@ export class SpotterService {
   }
 
 
-  getWaveData(): Observable<WaveData[]> {
-    return this.http.get<WaveData[]>(this.waveDataUrl)
+  getWaveData(spotterId: String): Observable<WaveData[]> {
+    //private waveDataUrl = 'https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId="+ spotterId +"&token=c3abab55e2e549f02fdb683bd936c7&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500';
+    
+    return this.http.get<WaveData[]>('https://wavefleet.spoondriftspotter.co/api/wave-data?spotterId='+ spotterId +'&token=c3abab55e2e549f02fdb683bd936c7&includeWaves=true&includeTrack=true&includeDirectionalMoments=true&limit=500')
       .pipe(
         tap(_ => this.log('fetched wave data...')),
         catchError(this.handleError('getWave', []))

@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   xLabel = 'TimeStamp';
   yLabel = 'Measurements';
 
+  spotter_id_val: String = 'SPOT-0089';
 
   options = {
     layers: [
@@ -62,14 +63,24 @@ export class AppComponent implements OnInit {
 
   constructor(private service: SpotterService) {
     this.markers.push(this.marker1);
+    this.spotter_id_val = 'SPOT-0089';
+
+  }
+
+  onSelectionChange(): void {
+
+    //alert(this.spotter_id_val);
+    this.getLatest();
+    this.getWaveData();
 
   }
 
 
 
   ngOnInit() {
-    this.getLatest();
-    this.getWaveData();
+    this.spotter_id_val = 'SPOT-0089';
+    this.getLatest();//(this.spotter_id_val);
+    this.getWaveData();//(this.spotter_id_val);
 
   }
 
@@ -79,11 +90,11 @@ export class AppComponent implements OnInit {
   }
 
   getLatest(): void {
-    this.service.getLatest().subscribe(latest => this.latest = latest);
+    this.service.getLatest(this.spotter_id_val).subscribe(latest => this.latest = latest);
   }
 
   getWaveData(): void {
-    this.service.getWaveData().subscribe(waveData => this.waveData = waveData, error1 => console.log("Error: ", error1), () => this.processChart(this.waveData, 50));
+    this.service.getWaveData(this.spotter_id_val).subscribe(waveData => this.waveData = waveData, error1 => console.log("Error: ", error1), () => this.processChart(this.waveData, 50));
     //this.service.getWaveData().
   }
 
